@@ -1,11 +1,19 @@
 #!/usr/bin/python3
-
+import logging
 import socket
 import threading
 from queue import Queue
 
+def log():
+    logging.basicConfig(level= logging.INFO, filename ="port_scanner.log", filemode= "a",
+                        format = "%(asctime)s -  %(levelname)s - %(message)s")
 
-def meny():
+logging.info("info")
+logging.warning("warning")
+logging.error("error")
+logging.critical("critical")
+
+def meny():  
     print("What do you want to scan:")
     print("1. Your own PC(local host)")
     print("2. Your router")
@@ -23,13 +31,12 @@ def meny():
         except:
             print("Enter a number")
 
-
 def scan_target(ip, start_port=1, end_port=1024):
     """Kör port scanning på en IP"""
     queue = Queue()
     open_ports = []
     
-def portscan(port):
+    def portscan(port):
         try:
             s1 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             s1.settimeout(0.5)
@@ -39,7 +46,7 @@ def portscan(port):
         except:
             return False
     
-def worker():
+    def worker():
         while not queue.empty():
             port = queue.get()
             if portscan(port):
@@ -48,18 +55,18 @@ def worker():
             queue.task_done()
 
     # Fyll kön
-for port in range(start_port, end_port + 1):
-       	 		queue.put(port)
+    for port in range(start_port, end_port + 1):
+        queue.put(port)
     
     # Starta trådar
-threads = []
-for i in range(min(100, (end_port - start_port + 1))):
+    threads = []
+    for i in range(min(100, (end_port - start_port + 1))):
         t = threading.Thread(target=worker)
         t.daemon = True
         t.start()
-        threads.append(t)    
-
-     # Vänta
+        threads.append(t)
+    
+    # Vänta
     queue.join()
     
     return open_ports
@@ -79,7 +86,7 @@ def main():
         elif choice == 2:
             target = "192.168.1.1"  # Vanlig router IP
             print(f"\nScanning router ({target})...")
-            print("Attention: Your router cam have another IP!")
+            print("Attention: Your router can have another IP!")
             
         elif choice == 3:
             target = input("Enter IP-adress or domainname: ")
@@ -110,7 +117,8 @@ def main():
         
         # Kör scanning
         open_ports = scan_target(target)
-# Visa resultat
+        
+        # Visa resultat
         print(f"\n{'='*50}")
         if open_ports:
             open_ports.sort()
@@ -125,3 +133,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
