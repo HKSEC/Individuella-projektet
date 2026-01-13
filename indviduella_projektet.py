@@ -29,7 +29,7 @@ def scan_target(ip, start_port=1, end_port=1024):
     queue = Queue()
     open_ports = []
     
-    def portscan(port):
+def portscan(port):
         try:
             s1 = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
             s1.settimeout(0.5)
@@ -39,7 +39,7 @@ def scan_target(ip, start_port=1, end_port=1024):
         except:
             return False
     
-    def worker():
+def worker():
         while not queue.empty():
             port = queue.get()
             if portscan(port):
@@ -48,18 +48,80 @@ def scan_target(ip, start_port=1, end_port=1024):
             queue.task_done()
 
     # Fyll kön
-    for port in range(start_port, end_port + 1):
-        queue.put(port)
+for port in range(start_port, end_port + 1):
+       	 		queue.put(port)
     
     # Starta trådar
-    threads = []
-    for i in range(min(100, (end_port - start_port + 1))):
+threads = []
+for i in range(min(100, (end_port - start_port + 1))):
         t = threading.Thread(target=worker)
         t.daemon = True
         t.start()
-        threads.append(t)
-    
-    # Vänta
+        threads.append(t)    
+
+     # Vänta
     queue.join()
     
     return open_ports
+
+def main():
+    while True:
+        choice = meny()  # <-- FUNKAR NU! (meny() istället för show_menu())
+        
+        if choice == 5:
+            print("Ending...")
+            break
+        
+        if choice == 1:
+            target = "127.0.0.1"
+            print(f"\nScanning localhost ({target})...")
+            
+        elif choice == 2:
+            target = "192.168.1.1"  # Vanlig router IP
+            print(f"\nScanning router ({target})...")
+            print("Attention: Your router cam have another IP!")
+            
+        elif choice == 3:
+            target = input("Enter IP-adress or domainname: ")
+            print(f"\nScanning {target}...")
+            
+        elif choice == 4:
+            target = input("Enter IP-adress: ")
+            port = int(input("Enter port to test: "))
+            
+            # Testa bara en port
+            sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+            sock.settimeout(2)
+            result = sock.connect_ex((target, port))
+            sock.close()
+            
+            if result == 0:
+                print(f"\n[+] Port {port} is OPEN on {target}")
+                try:
+                    service = socket.getservbyport(port)
+                    print(f"    Service: {service}")
+                except:
+                    print("    Service: Unknown")  
+            else:
+                print(f"\n[-] Port {port} is CLOSED on {target}")
+            
+            input("\nPress Enter to CONTINUE...")  
+            continue
+        
+        # Kör scanning
+        open_ports = scan_target(target)
+# Visa resultat
+        print(f"\n{'='*50}")
+        if open_ports:
+            open_ports.sort()
+            print(f"Found {len(open_ports)} open ports:")
+            for port in open_ports:
+                print(f"  • Port {port}")
+        else:
+            print("No available ports found")  
+        print('='*50)
+        
+        input("\nPress Enter to CONTINUE...")  
+
+if __name__ == "__main__":
+    main()
