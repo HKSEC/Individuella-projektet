@@ -307,7 +307,7 @@ def main():
         USE THIS ONLY FOR EDUCATIONAL PURPOSES (USE WITH CAUTION)!!!
 
 
-       >>> MADE BY: HALALKID1 :: HAIDER <<<
+       >>> MADE BY: HKSEC :: HAIDER <<<
 """)
 
     # 1. Setup logging
