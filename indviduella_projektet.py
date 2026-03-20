@@ -16,12 +16,12 @@ from queue import Queue
 import argparse  
 
 def setup_logging():
-    # Konfigurerar logging-systemet med basic inställningar
-    logging.basicConfig(level= logging.INFO, filename = "port_scanner.log", filemode= "a",
-                        format = "%(asctime)s -  %(levelname)s - %(message)s")
+# Konfigurerar logging-systemet med basic inställningar
+logging.basicConfig(level=logging.INFO, filename="port_scanner.log", filemode="a",
+                    format="%(asctime)s - %(levelname)s - %(message)s")
 
-    logging.info("PORT SCANNER INITIALIZING")
-    return "port_scanner.log"
+logging.info("PORT SCANNER INITIALIZING")
+return "port_scanner.log"
 
 def parse_arguments():
     # Hanterar kommandoradsargument 
@@ -29,7 +29,6 @@ def parse_arguments():
         description="Port Scanner - Educational Tool by Halalkid1",
         epilog="Example: python port_scanner.py -t 192.168.1.1 -p 80,443"
     )
-    
     
     parser.add_argument("-t", "--target", 
                        help="Target IP address or hostname to scan")
@@ -71,6 +70,8 @@ def e_control():
         print("[-] ERROR: NO NETWORK ACCESS")
         print("====CHECK YOUR NETWORK CONNECTION====")
         return False
+
+    
 
 def meny():  
     # Visar huvudmenyn för användaren
