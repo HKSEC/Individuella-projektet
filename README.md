@@ -19,6 +19,7 @@ This project aims to create an automation tool for port scanning that can:
 - **Banner Grabbing** – Retrieves banner information from ports like 21, 22, 23, 25, 80, 443
 - **Logging** – All activity is logged to `port_scanner.log`
 
+
 ### Interactive Mode
 - Scan localhost (127.0.0.1)
 - Scan router (192.168.1.1)
@@ -32,7 +33,7 @@ This project aims to create an automation tool for port scanning that can:
 | -v, --version | Show version information | -v |
 | --help-menu | Show help information | --help-menu |
 
-## 💻 System Requirements
+## System Requirements
 
 - **Python:** Version 3.6 or higher
 - **Operating System:** Windows, Linux, or macOS
@@ -41,6 +42,8 @@ This project aims to create an automation tool for port scanning that can:
 
 - ### Installation
 
-```bash
+bash
 git clone https://github.com/Halalkid/Individuella-projektet.git
 cd Individuella-projektet
+
+<img width="1376" height="768" alt="Flowchart_portscanner" src="https://github.com/user-attachments/assets/3da01b3d-20ed-4850-8e9e-8a67f495cc7e" />
