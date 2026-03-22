@@ -4,7 +4,7 @@
 #FSH
 #Halalkid1: Haider
 #Cyber security project: Port Scanner
-
+#Dubbelkollad av lcarlström 2026-03-22
 
 
 import socket
