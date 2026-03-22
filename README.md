@@ -1,3 +1,11 @@
+
+
+<img width="1380" height="752" alt="FLOWCHART PORTSCANNER" src="https://github.com/user-attachments/assets/ae005a4c-cec0-405f-a8b9-b2d08fbe1877" />
+
+
+
+
+
 # Individuella-projektet
 
 Cybersecurity port scanner project
